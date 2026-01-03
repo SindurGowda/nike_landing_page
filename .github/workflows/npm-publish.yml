@@ -1,10 +1,14 @@
+name: CI/CD Pipeline
+
 on:
+  push:
+    branches:
+      - development
   release:
     types: [created]
 
 jobs:
   build:
-    if: github.event.release.target_commitish == 'development'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -16,7 +20,6 @@ jobs:
 
   publish-npm:
     needs: build
-    if: github.event.release.target_commitish == 'development'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
